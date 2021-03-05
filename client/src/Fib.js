@@ -35,6 +35,8 @@ class Fib extends Component {
         this.setState({
             index: ''
         })
+        this.fetchValues();
+        this.fetchIndexes();
     }
     renderSeenIndexes() {
         return this.state.seenIndexes.map(({number})=> number).join(", ")
@@ -43,8 +45,8 @@ class Fib extends Component {
         const entries = [];
         for (let key in this.state.values) {
             entries.push(
-                <div>
-                    key={key}
+                <div key={key}>
+                    
                     For index {key} I calculated {this.state.values[key]}
                 </div>
             )
@@ -60,7 +62,7 @@ class Fib extends Component {
                         enter your index:
                     </label>
                     <input
-                    values={this.state.index}
+                    value={this.state.index}
                     onChange={event => this.setState({index: event.target.value})}
                      />
                     <button>

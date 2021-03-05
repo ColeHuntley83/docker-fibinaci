@@ -1,0 +1,20 @@
+language: generic
+sudo: required
+services:
+ - docker
+before_install:
+  - docker build -t colehuntley83/docker-fib-frontend-dev -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true colehuntley83/docker-fib-frontend-dev npm test
+
+after_success:
+  - docker build -t colehuntley83/docker-fib-frontend-prod ./client   
+  - docker build -t colehuntley83/docker-fib-nginx-prod ./nginx
+  - docker build -t colehuntley83/docker-fib-worker-prod ./worker
+  - docker build -t colehuntley83/docker-fib-server-prod ./server
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push colehuntley83/docker-fib-frontend-prod
+  - docker push colehuntley83/docker-fib-worker-prod 
+  - docker push colehuntley83/docker-fib-nginx-prod
+  - docker push colehuntley83/docker-fib-server-prod

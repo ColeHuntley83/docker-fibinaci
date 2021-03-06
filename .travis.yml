@@ -18,3 +18,15 @@ after_success:
   - docker push colehuntley83/docker-fib-worker-prod 
   - docker push colehuntley83/docker-fib-nginx-prod
   - docker push colehuntley83/docker-fib-server-prod
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-west-1'
+  app: 'multi-docker-fibinaci'
+  env: 'Multidockerfibinaci-env'
+  bucket_name: 'elasticbeanstalk-us-west-1-666564642231'
+  bucket_path: 'docker-multi'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

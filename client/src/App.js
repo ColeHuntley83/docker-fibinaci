@@ -10,7 +10,7 @@ function App() {
       <div className="App">
 
           <img src={logo} className="App-logo" alt="logo" />
-         <h1>Welcome to React</h1>
+         <h1>React K8's TravisCi Deployment</h1>
          <Link to="/">Home</Link>
          <Link to="/otherpage">Other Page</Link>
         
